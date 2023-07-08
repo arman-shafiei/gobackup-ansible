@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  gobackup:
+    image: huacnlee/gobackup:v2.4.0
+    container_name: gobackup
+    volumes:
+      - ./config:/etc/gobackup
+      - ./key/id_rsa:/root/.ssh/id_rsa:ro
+      - ./data:/root/.gobackup
+      - /etc:/sources/etc:ro
+    command: gobackup run 
+    network_mode: host
+

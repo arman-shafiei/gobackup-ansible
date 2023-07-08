@@ -1,0 +1,37 @@
+web:
+  username: arman
+  password: 12345qwert
+global:
+  log: /root/.gobackup/gobackup.log
+models:
+  test:
+    description: "This is a test"
+    schedule:
+      cron: "*/3 * * * *"
+    compress_with:
+      type: tgz
+    encrypt_with:
+      type: openssl
+      password: 123456
+      salt: false
+      openssl: true
+    storages:
+      local:
+        type: local
+        keep: 10
+        path: /root/.gobackup/local/etc
+      scp:
+        type: scp
+        keep: 10
+        path: /root/.gobackup/scp/etc
+        host: 192.168.1.244
+        private_key: /root/.ssh/id_rsa
+        username: root
+        password: 1377(1377)
+        timeout: 60
+    archive:
+      includes:
+        - /etc
+      excludes:
+        - /etc/rc*
+

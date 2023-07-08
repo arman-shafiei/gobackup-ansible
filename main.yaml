@@ -1,0 +1,51 @@
+--- # This is an Ansible script to deploy Gobackup on a desired number of machines.
+
+- hosts: all
+  user: root
+  gather_facts: true
+  vars_files: ./vars.yaml
+  tasks:
+
+#    - name: Update the packages (APT based)
+#      apt:
+#        name: '*'
+#        state: latest
+#        update_cache: yes
+#        only_upgrade: yes
+#      when: ansible_os_family == "Debian"
+#
+#    - name: Update the packages (YUM based)
+#      yum:
+#        name: '*'
+#        state: latest
+#        update_cache: yes
+#        update_only: yes
+#      when: ansible_os_family == "RedHat"
+
+    - name: Create base directory for Gobackup
+      file:
+        path: "{{ base_directory }}"
+        state: directory
+        mode: '0775'
+
+    - name: Create other sub-directories
+      file:
+        path: "{{ base_directory }}/{{ item }}"
+        state: directory
+        mode: '0775'
+      with_items:
+        - config
+        - data
+
+    - name: Copy the docker compose file
+      copy:
+        src: ./docker-compose/docker-compose.yaml
+        dest: "{{ base_directory }}/docker-compose.yaml"
+
+    - name: Copy Gobackup config files
+      copy:
+        src: ./configs/{{ config_file }}
+        dest: "{{ base_directory }}/config/gobackup.yml"
+
+    - name: Start gobackup service
+      shell: cd "{{ base_directory }}" && docker compose up -d

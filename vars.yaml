@@ -1,0 +1,5 @@
+--- # This file contains variables used by main ansible file
+
+base_directory: /opt/test_go
+
+config_file: test.yaml
