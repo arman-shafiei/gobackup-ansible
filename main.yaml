@@ -6,21 +6,21 @@
   vars_files: ./vars.yaml
   tasks:
 
-#    - name: Update the packages (APT based)
-#      apt:
-#        name: '*'
-#        state: latest
-#        update_cache: yes
-#        only_upgrade: yes
-#      when: ansible_os_family == "Debian"
-#
-#    - name: Update the packages (YUM based)
-#      yum:
-#        name: '*'
-#        state: latest
-#        update_cache: yes
-#        update_only: yes
-#      when: ansible_os_family == "RedHat"
+    - name: Update the packages (APT based)
+      apt:
+        name: '*'
+        state: latest
+        update_cache: yes
+        only_upgrade: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Update the packages (YUM based)
+      yum:
+        name: '*'
+        state: latest
+        update_cache: yes
+        update_only: yes
+      when: ansible_os_family == "RedHat"
 
     - name: Create base directory for Gobackup
       file:
