@@ -3,3 +3,5 @@
 base_directory: /opt/test_go
 
 config_file: test.yaml
+
+gobackup_version: v2.4.0

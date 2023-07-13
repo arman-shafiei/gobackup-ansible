@@ -42,6 +42,11 @@
         src: ./docker-compose/docker-compose.yaml
         dest: "{{ base_directory }}/docker-compose.yaml"
 
+    - name: Add docker compose version to .env file
+      lineinfile:
+        path: "{{ base_directory }}/.env"
+        line: "GOBACKUP_VERSION={{ gobackup_version }}"
+
     - name: Copy Gobackup config files
       copy:
         src: ./configs/{{ config_file }}
