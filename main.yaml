@@ -46,6 +46,7 @@
       lineinfile:
         path: "{{ base_directory }}/.env"
         line: "GOBACKUP_VERSION={{ gobackup_version }}"
+        create: true
 
     - name: Copy Gobackup config files
       copy:
