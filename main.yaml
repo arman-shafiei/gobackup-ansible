@@ -8,21 +8,17 @@
 
     - name: Update the packages (APT based)
       apt:
-        name: '*'
-        state: latest
         update_cache: yes
-        only_upgrade: yes
+        cache_valid_time: 3600
       when: ansible_os_family == "Debian"
 
     - name: Update the packages (YUM based)
       yum:
-        name: '*'
-        state: latest
         update_cache: yes
-        update_only: yes
+        cache_valid_time: 3600
       when: ansible_os_family == "RedHat"
 
-    - name: Create base directory for Gobackup
+    - name: Create a base directory for Gobackup
       file:
         path: "{{ base_directory }}"
         state: directory
@@ -37,12 +33,12 @@
         - config
         - data
 
-    - name: Copy the docker compose file
+    - name: Copy the docker-compose file
       copy:
         src: ./docker-compose/docker-compose.yaml
         dest: "{{ base_directory }}/docker-compose.yaml"
 
-    - name: Add docker compose version to .env file
+    - name: Add docker-compose version to the .env file
       lineinfile:
         path: "{{ base_directory }}/.env"
         line: "GOBACKUP_VERSION={{ gobackup_version }}"
