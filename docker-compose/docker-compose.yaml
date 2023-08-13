@@ -9,6 +9,5 @@ services:
       - ./key/id_rsa:/root/.ssh/id_rsa:ro
       - ./data:/root/.gobackup
       - /etc:/sources/etc:ro
-    command: gobackup run 
-    network_mode: host
+    command: gobackup run
 
